@@ -24,7 +24,7 @@ Start serving on http://0.0.0.0:5000:
 
 Or serve on a custom ipaddress and port (both are required):
 
-    /path/to/your/project/directory$ python /path/to/makoserv.py &lt;ip_address&gt;:&lt;port_number&gt;
+    /path/to/your/project/directory$ python /path/to/makoserv.py <ip_address>:<port_number>
 
 
 ## Cached Templates

@@ -1,0 +1,10 @@
+<%
+    import json
+    
+    d = {
+        "value_one": "Here's a string for you.",
+        "value_two": 11,
+        "value_three": "Oh, look! A list of words!".split(" ")
+    }
+%>
+${ json.dumps(d) }

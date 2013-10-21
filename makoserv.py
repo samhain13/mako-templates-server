@@ -9,10 +9,11 @@ from mako import exceptions
 from mimetypes import guess_type
 
 root = os.getcwd()
-host = "0.0.0.0"        # S13: added this so it can be changed.
-port = 5000             # S13: used to be 8000, also changeable.
-temp = "/tmp/makoserv"  # S13: where to store cached templates.
-error_style = 'html' # select 'text' for plaintext error reporting
+host = "0.0.0.0"          # S13: added this so it can be changed.
+port = 5000               # S13: used to be 8000, also changeable.
+temp = "/tmp/makoserv"    # S13: where to store cached templates.
+dis_ext = ["py"]          # S13: a list of file extensions that should 404.
+error_style = 'html'      # select 'text' for plaintext error reporting
 
 lookup = TemplateLookup(directories=[root],
     filesystem_checks=True, module_directory=temp,
@@ -55,6 +56,9 @@ def serve(environ, start_response):
             else:
                 start_response("200 OK", [('Content-Type','text/html')])
                 return [exceptions.html_error_template().render()]
+    elif re.match(r'.*\.(%s)$' % "|".join(dis_ext), uri):
+        start_response("404 Not Found", [("Content-Type", "text/plain")])
+        return ["File not found."]
     else:
         u = re.sub(r'^\/+', '', uri)
         filename = os.path.join(root, u)

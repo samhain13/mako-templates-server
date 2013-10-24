@@ -64,9 +64,10 @@ def serve(environ, start_response):
         filename = os.path.join(root, u)
         # S13: if the request is a file, proceed as usual.
         if os.path.isfile(filename):
-            start_response("200 OK", [('Content-Type',
-                # S13: use mimetypes.guess_type.
-                guess_type(filename)[0])])
+            # S13: use mimetypes.guess_type.
+            mt = guess_type(filename)[0]
+            if mt: start_response("200 OK", [('Content-Type', mt)])
+            else: start_response("200 OK", [])
             return [file(filename).read()]
         # S13: if the request is a directory, redirect to the index.
         elif os.path.isdir(filename):

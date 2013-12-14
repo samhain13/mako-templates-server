@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """ 
     Based on Mako-[version]/examples/wsgi/run_wsgi.py.
     Changes marked with # S13:...

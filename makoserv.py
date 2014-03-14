@@ -33,6 +33,11 @@ def serve(environ, start_response):
     d = dict()
     d["args"] = dict([(k, getfield(fieldstorage[k])) for k in fieldstorage])
     d["env"] = environ
+    if os.path.isfile(os.path.join(root, "extra.py")):
+        import extra   # S13: we want extra Python stuff available.
+        d["extra"] = extra
+    else:
+        d["extra"] = None
 
     uri = environ.get('PATH_INFO', '/')
     if uri.endswith("/"):  # S13: use the index.html if no filename is given.

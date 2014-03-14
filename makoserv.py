@@ -15,6 +15,8 @@ temp = "/tmp/makoserv"    # S13: where to store cached templates.
 dis_ext = ["py"]          # S13: a list of file extensions that should 404.
 error_style = 'html'      # select 'text' for plaintext error reporting
 
+sys.path.append(root)     # S13: so we can create and import scripts from CWD.
+
 lookup = TemplateLookup(directories=[root],
     filesystem_checks=True, module_directory=temp,
     # S13: because we'll be using some UTF-8 characters.
